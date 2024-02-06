@@ -1,16 +1,17 @@
-# lifeforce
+# Life Force
 
-A new Flutter project.
+A remake of the NES game Life Force for Android/iOS.
+This app works for all platforms. Made using Flutter Flame game engine which you can learn about [here](https://docs.flame-engine.org/latest/).
 
-## Getting Started
+## About
+I've played this game since I was really young. I've always loved the gameplay and feel for the game. I decided to take a crack at making my own version of the game here.
 
-This project is a starting point for a Flutter application.
+Check out the [Wikipedia](https://en.wikipedia.org/wiki/Salamander_(video_game)) page for this game to learn more.
 
-A few resources to get you started if this is your first Flutter project:
+[Gameplay](https://www.youtube.com/watch?v=dt-pMJiQTTk) (no deaths perfect gameplay)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![lifeforce](https://assets1.ignimgs.com/2014/08/22/lifeforce-wiiu-snap-01jpg-ed5e68.jpg)
+
+![lifeforce](https://coldslitherpodcast.files.wordpress.com/2012/04/lifeforce.gif)
+
