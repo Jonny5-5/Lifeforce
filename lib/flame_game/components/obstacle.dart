@@ -61,7 +61,7 @@ class Obstacle extends SpriteComponent with HasWorldReference<EndlessWorld> {
     // Since all the obstacles reside in the same image, srcSize and srcPosition
     // are used to determine what part of the image that should be used.
     sprite = await Sprite.load(
-      'enemies/obstacles.png',
+      'enemies/space_enemies.png',
       srcSize: _srcSize,
       srcPosition: _srcPosition,
     );
