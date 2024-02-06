@@ -39,6 +39,7 @@ flutter:
     - assets/images/
     - assets/images/dash/
     - assets/images/ship/
+    - assets/images/powerup/
     - assets/images/enemies/
     - assets/images/scenery/
     - assets/music/
