@@ -148,21 +148,6 @@ class EndlessWorld extends World
     scoreNotifier.value = 0;
   }
 
-  // /// [onTapDown] is called when the player taps the screen and then calculates
-  // /// if and how the player should jump.
-  // @override
-  // void onTapDown(TapDownEvent event) {
-  //   // Which direction the player should jump.
-  //   final towards = (event.localPosition - player.position)..normalize();
-  //   // If the tap is underneath the player no jump is triggered, but if it is
-  //   // above the player it triggers a jump, even though the player might be in
-  //   // the air. This makes it possible to later implement double jumping inside
-  //   // of the `player` class if one would want to.
-  //   // if (towards.y.isNegative) {
-  //   player.fly(towards.y);
-  //   // }
-  // }
-
   /// [onTapDown] is called when the player taps the screen and then calculates
   /// if and how the player should jump.
   @override
