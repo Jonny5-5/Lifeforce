@@ -72,7 +72,7 @@ class EndlessWorld extends World
     // The player is the component that we control when we tap the screen, the
     // Dash in this case.
     player = Player(
-      position: Vector2(-size.x / 3, groundLevel - 900),
+      position: Vector2(-size.x / 3, size.y / 2),
       addScore: addScore,
       resetScore: resetScore,
     );
