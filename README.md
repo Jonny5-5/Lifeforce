@@ -10,8 +10,11 @@ Check out the [Wikipedia](https://en.wikipedia.org/wiki/Salamander_(video_game))
 
 [Gameplay](https://www.youtube.com/watch?v=dt-pMJiQTTk) (no deaths perfect gameplay)
 
+### My Progress
+Feb 6
+![screenshot0](/StoreListing/screenshot0.png)
 
+### Screenshots from NES
 ![lifeforce](https://assets1.ignimgs.com/2014/08/22/lifeforce-wiiu-snap-01jpg-ed5e68.jpg)
 
 ![lifeforce](https://coldslitherpodcast.files.wordpress.com/2012/04/lifeforce.gif)
-
