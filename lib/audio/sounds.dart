@@ -20,8 +20,7 @@ List<String> soundTypeToFilename(SfxType type) {
       ];
     case SfxType.score:
       return const [
-        'score1.mp3',
-        'score2.mp3',
+        'life_force_sfx/Sound Effect (19).wav',
       ];
     case SfxType.buttonTap:
       return const [
