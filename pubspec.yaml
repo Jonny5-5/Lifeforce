@@ -44,6 +44,7 @@ flutter:
     - assets/images/scenery/
     - assets/music/
     - assets/sfx/
+    - assets/sfx/life_force_sfx/
 
   fonts:
     - family: Press Start 2P
