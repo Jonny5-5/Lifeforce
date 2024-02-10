@@ -83,11 +83,13 @@ class EndlessWorld extends World
         factory: (_) => Obstacle.random(
           random: _random,
           canSpawnTall: level.canSpawnTall,
+          position: Vector2(0, 500),
         ),
-        period: 5,
+        period: 1,
         area: Rectangle.fromPoints(
-          Vector2(size.x / 2, groundLevel),
-          Vector2(size.x / 2, groundLevel),
+          // TODO: Find the obstacle size in here
+          Vector2(size.x / 2, -size.y / 2 + Point.spriteSize.y),
+          Vector2(size.x / 2, size.y / 2 - Point.spriteSize.y),
         ),
         random: _random,
       ),
@@ -100,7 +102,7 @@ class EndlessWorld extends World
         maxPeriod: 5.0 + level.number,
         area: Rectangle.fromPoints(
           Vector2(size.x / 2, -size.y / 2 + Point.spriteSize.y),
-          Vector2(size.x / 2, groundLevel),
+          Vector2(size.x / 2, size.y / 2 - Point.spriteSize.y),
         ),
         random: _random,
       ),
