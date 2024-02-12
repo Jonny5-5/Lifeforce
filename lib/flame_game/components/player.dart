@@ -2,6 +2,7 @@ import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/animation.dart';
+import 'package:life_force/flame_game/effects/explode_effect.dart';
 import 'package:life_force/flame_game/effects/fly_effect.dart';
 
 import '../../audio/sounds.dart';
@@ -72,6 +73,15 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
         [await game.loadSprite('ship/ship_down.png')],
         stepTime: double.infinity,
       ),
+      PlayerState.exploding: await game.loadSpriteAnimation(
+        'ship/explode_spritesheet_28x18.png',
+        SpriteAnimationData.sequenced(
+          amount: 3,
+          textureSize: Vector2(28, 18),
+          stepTime: 0.15,
+          loop: false,
+        ),
+      ),
     };
     // The starting state will be that the player is flying.
     current = PlayerState.flying;
@@ -93,7 +103,7 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     } else if (_lastPosition.y < position.y) {
       current = PlayerState.flyingDown;
     } else {
-      current = PlayerState.flying;
+      // current = PlayerState.flying;
     }
 
     _lastPosition.setFrom(position);
@@ -109,7 +119,8 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     if (other is Obstacle) {
       game.audioController.playSfx(SfxType.damage);
       resetScore();
-      add(HurtEffect());
+      add(ExplodeEffect());
+      current = PlayerState.exploding;
     } else if (other is Point) {
       // When the player collides with a point it should gain a point and remove
       // the `Point` from the game.
@@ -142,4 +153,5 @@ enum PlayerState {
   flying,
   flyingUp,
   flyingDown,
+  exploding,
 }
