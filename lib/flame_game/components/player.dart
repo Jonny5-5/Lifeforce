@@ -41,22 +41,6 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
   Future<void> onLoad() async {
     // This defines the different animation states that the player can be in.
     animations = {
-      PlayerState.running: await game.loadSpriteAnimation(
-        'dash/dash_spritesheet.png',
-        SpriteAnimationData.sequenced(
-          amount: 2,
-          textureSize: Vector2.all(16),
-          stepTime: 0.15,
-        ),
-      ),
-      PlayerState.jumping: SpriteAnimation.spriteList(
-        [await game.loadSprite('dash/dash_jumping.png')],
-        stepTime: double.infinity,
-      ),
-      PlayerState.falling: SpriteAnimation.spriteList(
-        [await game.loadSprite('dash/dash_falling.png')],
-        stepTime: double.infinity,
-      ),
       PlayerState.flying: await game.loadSpriteAnimation(
         'ship/ship_spritesheet.png',
         SpriteAnimationData.sequenced(
@@ -79,7 +63,7 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
           amount: 3,
           textureSize: Vector2(28, 18),
           stepTime: 0.15,
-          loop: false,
+          loop: true,
         ),
       ),
     };
@@ -98,15 +82,29 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
   void update(double dt) {
     super.update(dt);
 
-    if (_lastPosition.y > position.y) {
-      current = PlayerState.flyingUp;
-    } else if (_lastPosition.y < position.y) {
-      current = PlayerState.flyingDown;
-    } else {
-      // current = PlayerState.flying;
+    if (current
+        case PlayerState.flying ||
+            PlayerState.flyingUp ||
+            PlayerState.flyingDown) {
+      if (_lastPosition.y > position.y) {
+        current = PlayerState.flyingUp;
+      } else if (_lastPosition.y < position.y) {
+        current = PlayerState.flyingDown;
+      } else {
+        current = PlayerState.flying;
+      }
+    } else if (current case PlayerState.exploding) {
+      // Do nothing...
+    } else if (current case null) {
+      // Then there's an error...
     }
 
     _lastPosition.setFrom(position);
+  }
+
+  // This happens when the player is done exploding
+  void onExplodeComplete() {
+    current = PlayerState.flying;
   }
 
   @override
@@ -116,10 +114,10 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
   ) {
     super.onCollisionStart(intersectionPoints, other);
     // When the player collides with an obstacle it should lose all its points.
-    if (other is Obstacle) {
+    if (other is Obstacle && current != PlayerState.exploding) {
       game.audioController.playSfx(SfxType.damage);
       resetScore();
-      add(ExplodeEffect());
+      add(ExplodeEffect(onExplodeComplete));
       current = PlayerState.exploding;
     } else if (other is Point) {
       // When the player collides with a point it should gain a point and remove
@@ -131,12 +129,9 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
   }
 
   void fly(Vector2 vector) {
-    if (_lastPosition.y > vector.y) {
-      current = PlayerState.flyingUp;
-    } else {
-      current = PlayerState.flyingDown;
+    if (current == PlayerState.exploding) {
+      return;
     }
-
     position.x = vector.x;
     position.y = vector.y;
 
@@ -147,9 +142,6 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
 }
 
 enum PlayerState {
-  running,
-  jumping,
-  falling,
   flying,
   flyingUp,
   flyingDown,
