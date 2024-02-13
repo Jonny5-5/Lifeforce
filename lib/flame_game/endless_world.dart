@@ -78,6 +78,7 @@ class EndlessWorld extends World
     );
     add(player);
 
+    // Spawn obstacles
     add(
       SpawnComponent(
         factory: (_) => Obstacle.random(
@@ -95,6 +96,7 @@ class EndlessWorld extends World
       ),
     );
 
+    // Spawn points
     add(
       SpawnComponent.periodRange(
         factory: (_) => Point(),
