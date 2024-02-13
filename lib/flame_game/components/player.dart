@@ -4,6 +4,7 @@ import 'package:flame/effects.dart';
 import 'package:flutter/animation.dart';
 import 'package:life_force/flame_game/effects/explode_effect.dart';
 import 'package:life_force/flame_game/effects/fly_effect.dart';
+import 'package:life_force/flame_game/effects/resurrect_effect.dart';
 
 import '../../audio/sounds.dart';
 import '../endless_runner.dart';
@@ -66,6 +67,15 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
           loop: true,
         ),
       ),
+      // Same as the fly state. The ResurrectEffect will make the ship flash
+      PlayerState.resurrect: await game.loadSpriteAnimation(
+        'ship/ship_spritesheet.png',
+        SpriteAnimationData.sequenced(
+          amount: 2,
+          textureSize: Vector2.all(24),
+          stepTime: 0.15,
+        ),
+      ),
     };
     // The starting state will be that the player is flying.
     current = PlayerState.flying;
@@ -95,16 +105,28 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
       }
     } else if (current case PlayerState.exploding) {
       // Do nothing...
+    } else if (current case PlayerState.resurrect) {
+      // Do nothing...
     } else if (current case null) {
       // Then there's an error...
+      current = PlayerState.flying;
     }
 
     _lastPosition.setFrom(position);
   }
 
-  // This happens when the player is done exploding
-  void onExplodeComplete() {
+  /// This is called when the player has finished resurrecting.
+  void onResurrectComplete() {
+    print("Resurrect complete");
     current = PlayerState.flying;
+  }
+
+  // This happens when the player is done exploding
+  // Make the player resurrect and then flying when the effect is done.
+  void onExplodeComplete() {
+    print("Explode complete");
+    current = PlayerState.resurrect;
+    add(ResurrectEffect(onResurrectComplete));
   }
 
   @override
@@ -112,9 +134,15 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     Set<Vector2> intersectionPoints,
     PositionComponent other,
   ) {
+    if (current != PlayerState.flying &&
+        current != PlayerState.flyingUp &&
+        current != PlayerState.flyingDown) {
+      // Then we don't detect a colision
+      return;
+    }
     super.onCollisionStart(intersectionPoints, other);
     // When the player collides with an obstacle it should lose all its points.
-    if (other is Obstacle && current != PlayerState.exploding) {
+    if (other is Obstacle) {
       game.audioController.playSfx(SfxType.damage);
       resetScore();
       add(ExplodeEffect(onExplodeComplete));
@@ -146,4 +174,5 @@ enum PlayerState {
   flyingUp,
   flyingDown,
   exploding,
+  resurrect,
 }
