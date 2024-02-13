@@ -17,21 +17,25 @@ class ExplodeEffect extends Component with ParentIsA<Player> {
   @override
   void onMount() {
     super.onMount();
-    const double effectTime = 1.0;
+    const double effectTime = 0.5;
+    const int repeatCount = 2;
     parent.addAll(
       [
-        ColorEffect(
-          Colors.white,
-          EffectController(
-            duration: effectTime / 8,
-            alternate: true,
-            repeatCount: 2,
-          ),
-          opacityTo: 0.9,
-        ),
+        // ColorEffect(
+        //   Colors.white,
+        //   EffectController(
+        //     duration: effectTime,
+        //     alternate: true,
+        //     repeatCount: repeatCount,
+        //   ),
+        //   opacityTo: 0.9,
+        // ),
       ],
     );
-    Future.delayed(Duration(milliseconds: effectTime.toInt() * 1000))
-        .then((value) => onComplete());
+    Future.delayed(
+      Duration(milliseconds: (effectTime * repeatCount * 1000).toInt()),
+    ).then(
+      (value) => onComplete(),
+    );
   }
 }
