@@ -113,14 +113,12 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
 
   /// This is called when the player has finished resurrecting.
   void onResurrectComplete() {
-    print("Resurrect complete");
     current = PlayerState.flying;
   }
 
-  // This happens when the player is done exploding
-  // Make the player resurrect and then flying when the effect is done.
+  /// This happens when the player is done exploding
+  /// Make the player resurrect and then flying when the effect is done.
   void onExplodeComplete() {
-    print("Explode complete");
     current = PlayerState.resurrect;
     add(ResurrectEffect(onResurrectComplete));
   }
@@ -158,10 +156,7 @@ class Player extends SpriteAnimationGroupComponent<PlayerState>
     }
     position.x = vector.x;
     position.y = vector.y;
-
-    // TODO: Make this work
-    // final effect = FlyEffect(vector);
-    // add(effect);
+    // TODO: Make an effect that accelerates/decelerates to that spot
   }
 }
 

@@ -14,13 +14,20 @@ class ResurrectEffect extends Component with ParentIsA<Player> {
     super.onMount();
     const double effectTime = 1.0;
     const int repeatCount = 2;
+    Path path = Path();
+    path.lineTo(300, 0);
+
     parent.addAll(
       [
         MoveToEffect(
-          Vector2(-300, 0),
+          Vector2(-800, 0),
+          EffectController(duration: 0),
+        ),
+        MoveAlongPathEffect(
+          path,
           EffectController(
             duration: effectTime,
-            curve: Curves.easeInOut,
+            curve: Curves.easeOut,
           ),
           onComplete: removeFromParent,
         ),
