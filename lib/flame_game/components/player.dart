@@ -1,16 +1,12 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flutter/animation.dart';
 import 'package:life_force/flame_game/effects/explode_effect.dart';
-import 'package:life_force/flame_game/effects/fly_effect.dart';
 import 'package:life_force/flame_game/effects/resurrect_effect.dart';
 
 import '../../audio/sounds.dart';
 import '../endless_runner.dart';
 import '../endless_world.dart';
-import '../effects/hurt_effect.dart';
-import '../effects/jump_effect.dart';
 import 'obstacle.dart';
 import 'point.dart';
 
